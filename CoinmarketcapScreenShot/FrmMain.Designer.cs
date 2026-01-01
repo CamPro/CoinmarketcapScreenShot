@@ -137,22 +137,22 @@
             // radio7day
             // 
             this.radio7day.AutoSize = true;
-            this.radio7day.Checked = true;
             this.radio7day.Location = new System.Drawing.Point(12, 75);
             this.radio7day.Name = "radio7day";
             this.radio7day.Size = new System.Drawing.Size(61, 21);
             this.radio7day.TabIndex = 44;
-            this.radio7day.TabStop = true;
             this.radio7day.Text = "7 day";
             this.radio7day.UseVisualStyleBackColor = true;
             // 
             // radio1month
             // 
             this.radio1month.AutoSize = true;
+            this.radio1month.Checked = true;
             this.radio1month.Location = new System.Drawing.Point(101, 75);
             this.radio1month.Name = "radio1month";
             this.radio1month.Size = new System.Drawing.Size(77, 21);
             this.radio1month.TabIndex = 45;
+            this.radio1month.TabStop = true;
             this.radio1month.Text = "1 month";
             this.radio1month.UseVisualStyleBackColor = true;
             // 
@@ -219,7 +219,7 @@
             this.Controls.Add(this.buttonOpenProfile);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMain";
             this.Text = "Coinmarketcap Screen Shot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
