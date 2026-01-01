@@ -156,11 +156,7 @@ namespace CoinmarketcapScreenShot
                     Cursor.Position = new Point(0, 0);
 
                     driver.Navigate().GoToUrl(linkCoin);
-                    Thread.Sleep(2000);
-
-                    // xóa header
-                    js.ExecuteScript("document.querySelector('div[data-role=\"global-header\"], div[data-test=\"global-header\"]').remove()");
-                    Thread.Sleep(100);
+                    Thread.Sleep(1500);
 
                     // coin name
                     coinName = driver.FindElement(By.CssSelector("#section-coin-overview span[data-role='coin-symbol']")).Text.Trim();
@@ -181,10 +177,20 @@ namespace CoinmarketcapScreenShot
                         driver.FindElement(By.CssSelector("ul li[data-index='tab-1Y']")).Click();
                     }
 
+                    Thread.Sleep(1000);
+
+                    // xóa header
+                    js.ExecuteScript("document.querySelector('div[data-role=\"global-header\"], div[data-test=\"global-header\"]').remove()");
+                    js.ExecuteScript("if (document.querySelector('div.chart-control-left')) document.querySelector('div.chart-control-left').remove()");
+                    js.ExecuteScript("if (document.querySelector('div[data-role=\"select-trigger\"]')) document.querySelector('div[data-role=\"select-trigger\"]').remove()");
+                    js.ExecuteScript("if (document.querySelector('li[data-index=\"tab-6\"]')) document.querySelector('li[data-index=\"tab-6\"]').remove()");
+                    js.ExecuteScript("if (document.querySelector('li[data-index=\"tab-8\"]')) document.querySelector('li[data-index=\"tab-8\"]').remove()");
+                    Thread.Sleep(100);
+
                     // scroll to chart
                     element = driver.FindElement(By.CssSelector("svg.highcharts-root"));
                     js.ExecuteScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'})", element);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
 
                     // neu la chu nhat se up chart 7 ngay
                     if (radio7day.Checked)
@@ -209,7 +215,7 @@ namespace CoinmarketcapScreenShot
                             // screen shot
                             Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
                             Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width - 3, element.Size.Height - 95);
+                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
                             bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
                             bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
                         }
@@ -240,7 +246,7 @@ namespace CoinmarketcapScreenShot
                             // screen shot
                             Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
                             Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width - 3, element.Size.Height - 95);
+                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
                             bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
                             bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
                         }
@@ -271,7 +277,7 @@ namespace CoinmarketcapScreenShot
                             // screen shot
                             Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
                             Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width - 3, element.Size.Height - 95);
+                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
                             bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
                             bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
                         }
