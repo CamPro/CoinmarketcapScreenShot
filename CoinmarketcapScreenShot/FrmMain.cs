@@ -184,9 +184,10 @@ namespace CoinmarketcapScreenShot
                     js.ExecuteScript("if (document.querySelector('div.chart-control-left')) document.querySelector('div.chart-control-left').remove()");
                     js.ExecuteScript("if (document.querySelector('div[data-role=\"select-trigger\"]')) document.querySelector('div[data-role=\"select-trigger\"]').remove()");
                     js.ExecuteScript("if (document.querySelector('li[data-index=\"tab-6\"]')) document.querySelector('li[data-index=\"tab-6\"]').remove()");
-                    js.ExecuteScript("if (document.querySelector('li[data-index=\"tab-8\"]')) document.querySelector('li[data-index=\"tab-8\"]').remove()");
+                    js.ExecuteScript("if (document.querySelector('li[data-index=\"tab-8\"] b')) document.querySelector('li[data-index=\"tab-8\"] b').remove()");
+                    // add coin name
+                    js.ExecuteScript($"if (document.querySelector('li[data-index=\"tab-8\"] div.popover-base')) document.querySelector('li[data-index=\"tab-8\"] div.popover-base').innerText = '{coinName}'");
                     Thread.Sleep(100);
-
                     // scroll to chart
                     element = driver.FindElement(By.CssSelector("svg.highcharts-root"));
                     js.ExecuteScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'})", element);
