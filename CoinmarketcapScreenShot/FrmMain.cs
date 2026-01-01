@@ -156,7 +156,7 @@ namespace CoinmarketcapScreenShot
                     Cursor.Position = new Point(0, 0);
 
                     driver.Navigate().GoToUrl(linkCoin);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
 
                     // xóa header
                     js.ExecuteScript("document.querySelector('div[data-role=\"global-header\"], div[data-test=\"global-header\"]').remove()");
