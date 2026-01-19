@@ -164,17 +164,38 @@ namespace CoinmarketcapScreenShot
                     // chose time
                     if (radio7day.Checked)
                     {
-                        driver.FindElement(By.CssSelector("ul li[data-index='tab-7D']")).Click();
+                        try
+                        {
+                            driver.FindElement(By.CssSelector("ul li[data-index='tab-7D']")).Click();
+                        }
+                        catch (Exception ex)
+                        {
+                            File.AppendAllText("error.txt", $"{coinName} - radio 7 day: {ex.Message}\n");
+                        }
                     }
 
                     if (radio1month.Checked)
                     {
-                        driver.FindElement(By.CssSelector("ul li[data-index='tab-1M']")).Click();
+                        try
+                        {
+                            driver.FindElement(By.CssSelector("ul li[data-index='tab-1M']")).Click();
+                        }
+                        catch (Exception ex)
+                        {
+                            File.AppendAllText("error.txt", $"{coinName} - radio 1 month: {ex.Message}\n");
+                        }
                     }
 
                     if (radio1year.Checked)
                     {
-                        driver.FindElement(By.CssSelector("ul li[data-index='tab-1Y']")).Click();
+                        try
+                        {
+                            driver.FindElement(By.CssSelector("ul li[data-index='tab-1Y']")).Click();
+                        }
+                        catch (Exception ex)
+                        {
+                            File.AppendAllText("error.txt", $"{coinName} - radio 1 year: {ex.Message}\n");
+                        }
                     }
 
                     Thread.Sleep(1000);
