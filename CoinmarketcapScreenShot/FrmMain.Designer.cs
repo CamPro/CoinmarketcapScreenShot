@@ -45,6 +45,7 @@
             this.buttonScanTopList = new System.Windows.Forms.Button();
             this.checkExitApp = new System.Windows.Forms.CheckBox();
             this.checkShutdownAfterFinish = new System.Windows.Forms.CheckBox();
+            this.buttonTakeChart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOpenDriver
@@ -198,11 +199,22 @@
             this.checkShutdownAfterFinish.Text = "Shutdown finish";
             this.checkShutdownAfterFinish.UseVisualStyleBackColor = true;
             // 
+            // buttonTakeChart
+            // 
+            this.buttonTakeChart.Location = new System.Drawing.Point(227, 267);
+            this.buttonTakeChart.Name = "buttonTakeChart";
+            this.buttonTakeChart.Size = new System.Drawing.Size(100, 40);
+            this.buttonTakeChart.TabIndex = 50;
+            this.buttonTakeChart.Text = "Take chart";
+            this.buttonTakeChart.UseVisualStyleBackColor = true;
+            this.buttonTakeChart.Click += new System.EventHandler(this.buttonTakeChart_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(341, 352);
+            this.Controls.Add(this.buttonTakeChart);
             this.Controls.Add(this.checkExitApp);
             this.Controls.Add(this.checkShutdownAfterFinish);
             this.Controls.Add(this.buttonScanTopList);
@@ -247,6 +259,7 @@
         private System.Windows.Forms.Button buttonScanTopList;
         private System.Windows.Forms.CheckBox checkExitApp;
         private System.Windows.Forms.CheckBox checkShutdownAfterFinish;
+        private System.Windows.Forms.Button buttonTakeChart;
     }
 }
 

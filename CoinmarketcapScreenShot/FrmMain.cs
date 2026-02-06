@@ -123,19 +123,23 @@ namespace CoinmarketcapScreenShot
         private void buttonOpenDriver_Click(object sender, EventArgs e)
         {
             StartChromeDriver();
-            for (int i = 0; i < 60 * 60; i++)
+            Task onetask = new Task(() =>
             {
-                Thread.Sleep(1000);
-                try
+                for (int i = 0; i < 60 * 60; i++)
                 {
-                    driver.FindElement(By.CssSelector("body, div"));
+                    Thread.Sleep(1000);
+                    try
+                    {
+                        driver.FindElement(By.CssSelector("body, div"));
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
                 }
-                catch (Exception)
-                {
-                    break;
-                }
-            }
-            driver.Quit();
+                driver.Quit();
+            });
+            onetask.Start();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -367,6 +371,7 @@ namespace CoinmarketcapScreenShot
                 buttonStart_Click(null, null);
             }
         }
+        
         private void shutdown()
         {
             Process sd_proc = Process.Start("shutdown.exe", "-s -t 0");
@@ -407,6 +412,22 @@ namespace CoinmarketcapScreenShot
             File.WriteAllLines(SettingCoinFile, listCoinUrl, Encoding.UTF8);
 
             driver.Quit();
+        }
+
+        private void buttonTakeChart_Click(object sender, EventArgs e)
+        {
+            string saveFolder = Application.StartupPath;
+            string imgFileName = Path.Combine(saveFolder, $"Chart {DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.png");
+
+            // element chart
+            element = driver.FindElement(By.CssSelector("svg.highcharts-root"));
+
+            // screen shot
+            Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
+            Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
+            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
+            bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
+            bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
         }
     }
 }
