@@ -46,6 +46,7 @@
             this.checkExitApp = new System.Windows.Forms.CheckBox();
             this.checkShutdownAfterFinish = new System.Windows.Forms.CheckBox();
             this.buttonTakeChart = new System.Windows.Forms.Button();
+            this.richTextLinks = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // buttonOpenDriver
@@ -209,11 +210,21 @@
             this.buttonTakeChart.UseVisualStyleBackColor = true;
             this.buttonTakeChart.Click += new System.EventHandler(this.buttonTakeChart_Click);
             // 
+            // richTextLinks
+            // 
+            this.richTextLinks.Location = new System.Drawing.Point(334, 12);
+            this.richTextLinks.Name = "richTextLinks";
+            this.richTextLinks.Size = new System.Drawing.Size(365, 330);
+            this.richTextLinks.TabIndex = 51;
+            this.richTextLinks.Text = "";
+            this.richTextLinks.WordWrap = false;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 352);
+            this.ClientSize = new System.Drawing.Size(704, 352);
+            this.Controls.Add(this.richTextLinks);
             this.Controls.Add(this.buttonTakeChart);
             this.Controls.Add(this.checkExitApp);
             this.Controls.Add(this.checkShutdownAfterFinish);
@@ -260,6 +271,7 @@
         private System.Windows.Forms.CheckBox checkExitApp;
         private System.Windows.Forms.CheckBox checkShutdownAfterFinish;
         private System.Windows.Forms.Button buttonTakeChart;
+        private System.Windows.Forms.RichTextBox richTextLinks;
     }
 }
 

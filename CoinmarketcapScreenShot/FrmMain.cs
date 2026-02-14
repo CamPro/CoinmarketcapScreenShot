@@ -39,6 +39,8 @@ namespace CoinmarketcapScreenShot
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            richTextLinks.Lines = File.ReadAllLines(SettingCoinFile, Encoding.UTF8);
+
             dateTimeClock.Format = DateTimePickerFormat.Custom;
             dateTimeClock.CustomFormat = "dd-MM-yyyy HH:mm";
             dateTimeClock.Value = DateTime.Today;
@@ -125,7 +127,7 @@ namespace CoinmarketcapScreenShot
             StartChromeDriver();
             Task onetask = new Task(() =>
             {
-                for (int i = 0; i < 60 * 60; i++)
+                for (int i = 0; i < 12 * 60 * 60; i++)
                 {
                     Thread.Sleep(1000);
                     try
@@ -144,7 +146,7 @@ namespace CoinmarketcapScreenShot
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            List<string> listUrls = File.ReadAllLines(SettingCoinFile, Encoding.UTF8).ToList();
+            List<string> listUrls = richTextLinks.Lines.ToList();
 
             string coinName = string.Empty;
 
@@ -164,6 +166,16 @@ namespace CoinmarketcapScreenShot
 
                     // coin name
                     coinName = driver.FindElement(By.CssSelector("#section-coin-overview span[data-role='coin-symbol']")).Text.Trim();
+
+                    // chart type
+                    try
+                    {
+                        driver.FindElement(By.CssSelector("div.chart-type ul li[data-index='tab-Line']")).Click();
+                        Thread.Sleep(250);
+                    }
+                    catch (Exception)
+                    {
+                    }
 
                     // chose time
                     if (radio7day.Checked)
@@ -241,7 +253,7 @@ namespace CoinmarketcapScreenShot
                             // screen shot
                             Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
                             Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
+                            Rectangle cropArea = new Rectangle(element.Location.X + 6, element.Location.Y - 40, element.Size.Width - 13, element.Size.Height - 55);
                             bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
                             bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
                         }
@@ -272,7 +284,7 @@ namespace CoinmarketcapScreenShot
                             // screen shot
                             Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
                             Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
+                            Rectangle cropArea = new Rectangle(element.Location.X + 6, element.Location.Y - 40, element.Size.Width - 13, element.Size.Height - 55);
                             bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
                             bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
                         }
@@ -303,7 +315,7 @@ namespace CoinmarketcapScreenShot
                             // screen shot
                             Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
                             Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-                            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
+                            Rectangle cropArea = new Rectangle(element.Location.X + 6, element.Location.Y - 40, element.Size.Width - 13, element.Size.Height - 55);
                             bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
                             bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
                         }
@@ -409,6 +421,8 @@ namespace CoinmarketcapScreenShot
                 listCoinUrl.Add(coinUrl);
             }
 
+            richTextLinks.Lines = listCoinUrl.ToArray();
+
             File.WriteAllLines(SettingCoinFile, listCoinUrl, Encoding.UTF8);
 
             driver.Quit();
@@ -419,15 +433,37 @@ namespace CoinmarketcapScreenShot
             string saveFolder = Application.StartupPath;
             string imgFileName = Path.Combine(saveFolder, $"Chart {DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.png");
 
-            // element chart
-            element = driver.FindElement(By.CssSelector("svg.highcharts-root"));
+            try
+            {
+                // element chart
+                element = driver.FindElement(By.CssSelector("svg.highcharts-root"));
 
-            // screen shot
-            Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
-            Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
-            Rectangle cropArea = new Rectangle(element.Location.X, element.Location.Y - 45, element.Size.Width - 3, element.Size.Height - 95 + 45);
-            bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
-            bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
+                // screen shot
+                Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
+                Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
+                Rectangle cropArea = new Rectangle(element.Location.X + 6, element.Location.Y - 40, element.Size.Width - 13, element.Size.Height - 55);
+                bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
+                bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                // element chart
+                element = driver.FindElement(By.CssSelector("#base-trading-view-chart iframe"));
+
+                // screen shot
+                Screenshot sc = ((ITakesScreenshot)driver).GetScreenshot();
+                Bitmap bmimg = Image.FromStream(new System.IO.MemoryStream(sc.AsByteArray)) as Bitmap;
+                Rectangle cropArea = new Rectangle(element.Location.X + 27, element.Location.Y - 38, element.Size.Width - 27, element.Size.Height + 38 - 8);
+                bmimg = bmimg.Clone(cropArea, bmimg.PixelFormat);
+                bmimg.Save(imgFileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
