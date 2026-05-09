@@ -167,6 +167,23 @@ namespace CoinmarketcapScreenShot
                     // coin name
                     coinName = driver.FindElement(By.CssSelector("#section-coin-overview span[data-role='coin-symbol']")).Text.Trim();
 
+                    // Loading Data
+                    for (int t = 0; t < 10; t++)
+                    {
+                        try
+                        {
+                            string chartText = driver.FindElement(By.CssSelector("#section-coin-chart")).Text;
+                            if (!chartText.Contains("Loading Data"))
+                            {
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        Thread.Sleep(1000);
+                    }
+
                     // chart type
                     try
                     {
@@ -465,5 +482,6 @@ namespace CoinmarketcapScreenShot
             {
             }
         }
+
     }
 }
